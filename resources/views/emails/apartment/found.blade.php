@@ -5,7 +5,7 @@
     <tr>
         <th>Street</th>
         <th>Price</th>
-        <th></th>
+        <th>Link</th>
     </tr>
     @foreach ($newApartments as $apartment)
         <tr>

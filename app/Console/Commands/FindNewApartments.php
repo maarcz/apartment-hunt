@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\ApartmentsFound;
 use App\Services\ApartmentService;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class FindNewApartments extends Command
 {
@@ -40,6 +42,10 @@ class FindNewApartments extends Command
     {
         $apartmentService = new ApartmentService();
         $newApartments = $apartmentService->newApartments();
+
+        if ($newApartments->isNotEmpty()) {
+            Mail::to(env('MAIL_TO'))->send(new ApartmentsFound($newApartments));
+        }
 
         return 0;
     }
